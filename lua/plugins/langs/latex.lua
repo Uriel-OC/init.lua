@@ -6,6 +6,14 @@ return {
     end
   },
   {
+    "blink.cmp",
+    opts = {
+      sources = {
+        per_filetype = { tex = { "lsp", "snippets", "buffer" } },
+      }
+    },
+  },
+  {
     "nvim-lspconfig",
     opts = {
       servers = {
@@ -16,17 +24,18 @@ return {
                 args = {
                   "-lualatex",
                   "-interaction=nonstopmode",
-                  "-synctex=9",
+                  "-synctex=1",
                   "-shell-escape",
                   "%f"
                 },
+                useFileList = true,
               },
               forwardSearch = {
                 executable = "displayline",
                 args = { "-r", "-b", "-n", "%l", "%p", "%f" },
               },
               chktex = { onEdit = true },
-              completion = { matcher = "prefix-ignore-case" },
+              latexFormatter = "tex-fmt",
               experimental = { followPackageLinks = true },
             }
           }
@@ -34,11 +43,5 @@ return {
       }
     },
     ft = "tex"
-  },
-  {
-    "nvim-cmp",
-    opts = function (_, opts)
-      vim.list_extend(opts.has_lsp, { "tex" })
-    end
   },
 }

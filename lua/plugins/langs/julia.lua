@@ -9,18 +9,10 @@ return {
     "nvim-lspconfig",
     opts = {
       servers = {
-        julials = {
-          settings = {}
-        }
+        julials = {}
       }
     },
     ft = "julia",
-  },
-  {
-    "nvim-cmp",
-    opts = function (_, opts)
-      vim.list_extend(opts.has_lsp, { "julia" })
-    end
   },
   {
     "vim-slime",

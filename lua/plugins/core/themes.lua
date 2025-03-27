@@ -11,6 +11,7 @@ return {
         }
       end,
       integrations = {
+        blink_cmp = true,
         fidget = true,
         snacks = { enabled = true },
         lsp_trouble = true,

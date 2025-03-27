@@ -9,17 +9,9 @@ return {
     "nvim-lspconfig",
     opts = {
       servers = {
-        tinymist = {
-          settings = {}
-        }
+        tinymist = {}
       }
     },
     ft = "typst",
-  },
-  {
-    "nvim-cmp",
-    opts = function (_, opts)
-      vim.list_extend(opts.has_lsp, { "typst" })
-    end
   },
 }
