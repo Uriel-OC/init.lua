@@ -1,3 +1,5 @@
+---@module "lazy.types"
+---@type LazyPluginSpec[]
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',

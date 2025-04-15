@@ -4,6 +4,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- displaying text
+vim.opt.smoothscroll = true
+vim.opt.scrolloff = 8
 vim.opt.wrap = false
 vim.opt.sidescrolloff = 8
 vim.opt.cmdheight = 1
@@ -41,7 +43,9 @@ vim.opt.timeoutlen = 300
 
 -- the swap file
 vim.opt.swapfile = false
+vim.opt.updatetime = 250
 
 -- various
 vim.opt.signcolumn = "yes"
 vim.opt.pyxversion = 3
+vim.opt.winborder = "rounded"

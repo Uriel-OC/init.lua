@@ -29,6 +29,10 @@ local in_math = make_condition(function()
 end)
 
 return {}, {
+  -- Delimiters
+  s([[\(]], fmta([[\(<>\)]], i(1)), { condition = - in_math }),
+  s([[\[]], fmta("\\[<>\\]", i(1)), { condition = - in_math }),
+  s([[\{]], fmta([[\{<>\}]], i(1)), { condition = in_math }),
   -- Scripts
   s("^", fmta("^{<>}", i(1)), { condition = in_math }),
   s("_", fmta("_{<>}", i(1)), { condition = in_math }),
@@ -52,6 +56,9 @@ return {}, {
   }, { conditions = in_math }),
   postfix(".cal", {
     l(l.POSTFIX_MATCH:sub(1, -2) .. "\\mathcal{" .. l.POSTFIX_MATCH:sub(-1) .. "}"),
+  }, { conditions = in_math }),
+  postfix(".scr", {
+    l(l.POSTFIX_MATCH:sub(1, -2) .. "\\mathscr{" .. l.POSTFIX_MATCH:sub(-1) .. "}"),
   }, { conditions = in_math }),
   postfix(".frak", {
     l(l.POSTFIX_MATCH:sub(1, -2) .. "\\mathfrak{" .. l.POSTFIX_MATCH:sub(-1) .. "}"),

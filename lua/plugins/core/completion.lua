@@ -1,3 +1,5 @@
+---@module "lazy.types"
+---@type LazyPluginSpec[]
 return {
   {
     'L3MON4D3/LuaSnip',
@@ -67,10 +69,9 @@ return {
           scrollbar = false,
         },
       },
-      signature = { enabled = true },
       fuzzy = {
         implementation = "rust",
-        sorts = { "sort_text", "score", "exact" },
+        sorts = { "score", "exact", "sort_text" },
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },

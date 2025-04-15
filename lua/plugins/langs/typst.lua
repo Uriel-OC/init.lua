@@ -1,3 +1,5 @@
+---@module "lazy.types"
+---@type LazyPluginSpec[]
 return {
   {
     "nvim-treesitter",
@@ -6,12 +8,15 @@ return {
     end
   },
   {
-    "nvim-lspconfig",
+    'chomosuke/typst-preview.nvim',
+    version = '1.*',
     opts = {
-      servers = {
-        tinymist = {}
-      }
+      invert_colors = "always",
+      dependencies_bin = {
+        tinymist = "tinymist",
+        websocat = "websocat",
+      },
     },
     ft = "typst",
-  },
+  }
 }

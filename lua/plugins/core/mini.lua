@@ -1,3 +1,5 @@
+---@module "lazy.types"
+---@type LazyPluginSpec[]
 return {
   {
     "echasnovski/mini.icons",
@@ -36,7 +38,8 @@ return {
           local diff              = MiniStatusline.section_diff({ trunc_width = 75 })
           local diagnostics       = MiniStatusline.section_diagnostics({
             trunc_width = 75,
-            signs = { ERROR = '󰅚 ', WARN = '󰀪 ', INFO = '󰋽 ', HINT = '󰌶 ' }
+            -- signs = { ERROR = '󰅚 ', WARN = '󰀪 ', INFO = '󰋽 ', HINT = '󰌶 ' }
+            signs = { ERROR = ' ', WARN = ' ', INFO = ' ', HINT = ' ' }
           })
           local lsp               = MiniStatusline.section_lsp({ trunc_width = 75 })
           local filename          = MiniStatusline.section_filename({ trunc_width = 140 })
@@ -76,8 +79,6 @@ return {
   {
     "echasnovski/mini.diff",
     event = "VeryLazy",
-    opts = {
-      view = { style = "sign" }
-    }
+    opts = {}
   },
 }
