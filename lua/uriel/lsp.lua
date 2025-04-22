@@ -91,4 +91,6 @@ vim.lsp.enable {
   "julials",
   -- C/C++/CUDA
   "clangd",
+  -- Terraform
+  "terraformls",
 }
