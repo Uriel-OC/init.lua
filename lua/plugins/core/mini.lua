@@ -44,7 +44,7 @@ return {
           local filename          = MiniStatusline.section_filename({ trunc_width = 140 })
           local location          = MiniStatusline.section_location({ trunc_width = 75 })
 
-          local ft_icon, ft_hl, _ = MiniIcons.get("filetype", vim.bo.filetype)
+          local ft_icon, _, _ = MiniIcons.get("extension", vim.fn.expand("%:t"))
 
           local fileinfo          = ('%s[%s]'):format(
             vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat
@@ -56,8 +56,7 @@ return {
             { hl = 'MiniStatuslineDevinfo',  strings = { lsp, diagnostics } },
             -- Center
             "%<",
-            { hl = "MiniStatuslineFilename", strings = { "%=" } },
-            { hl = ft_hl,                    strings = { ft_icon } },
+            { hl = "MiniStatuslineFilename", strings = { "%=", ft_icon } },
             { hl = 'MiniStatuslineFilename', strings = { filename } },
             -- Left
             '%=',
