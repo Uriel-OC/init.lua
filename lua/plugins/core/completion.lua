@@ -1,11 +1,11 @@
 ---@type LazyPluginSpec[]
 return {
   {
-    'L3MON4D3/LuaSnip',
+    "L3MON4D3/LuaSnip",
     event = "InsertEnter",
     build = "make install_jsregexp",
     config = function()
-      local luasnip = require 'luasnip'
+      local luasnip = require "luasnip"
 
       luasnip.config.setup {
         update_events = { "TextChanged", "TextChangedI" },
@@ -39,24 +39,25 @@ return {
   {
     "saghen/blink.cmp",
     version = "1.*",
+    build = "cargo build --release",
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
       keymap = {
-        ['<C-space>'] = { 'show_documentation', 'hide_documentation' },
-        ['<C-c>'] = { 'hide' },
-        ['<CR>'] = { 'accept', "fallback" },
+        ["<C-space>"] = { "show_documentation", "hide_documentation" },
+        ["<C-c>"] = { "hide" },
+        ["<CR>"] = { "accept", "fallback" },
 
-        ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-        ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+        ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<C-n>"] = { "select_next", "fallback_to_mappings" },
 
-        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-        ['<C-l>'] = { 'snippet_forward', 'fallback' },
-        ['<C-h>'] = { 'snippet_backward', 'fallback' },
+        ["<C-l>"] = { "snippet_forward", "fallback" },
+        ["<C-h>"] = { "snippet_backward", "fallback" },
 
-        ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
       },
       snippets = { preset = "luasnip" },
       completion = {
