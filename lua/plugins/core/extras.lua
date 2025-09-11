@@ -14,10 +14,10 @@ return {
       vim.keymap.set({ "n", "i" }, "<M-j>", splits.move_cursor_down)
       vim.keymap.set({ "n", "i" }, "<M-k>", splits.move_cursor_up)
       vim.keymap.set({ "n", "i" }, "<M-l>", splits.move_cursor_right)
-      vim.keymap.set("n", "<C-Left>", splits.resize_left)
-      vim.keymap.set("n", "<C-Down>", splits.resize_down)
-      vim.keymap.set("n", "<C-Up>", splits.resize_up)
-      vim.keymap.set("n", "<C-Right>", splits.resize_right)
+      vim.keymap.set("n", "<C-S-Left>", splits.resize_left)
+      vim.keymap.set("n", "<C-S-Down>", splits.resize_down)
+      vim.keymap.set("n", "<C-S-Up>", splits.resize_up)
+      vim.keymap.set("n", "<C-S-Right>", splits.resize_right)
     end
   },
   {
@@ -65,6 +65,7 @@ return {
         "gz",
         "<Plug>SlimeRegionSend",
         mode = "x",
+        silent = true,
         desc = "Send region to REPL"
       },
     },
