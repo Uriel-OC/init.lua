@@ -18,12 +18,13 @@ return {
     "folke/lazydev.nvim",
     opts = {
       library = {
-        { path = "lazy.nvim", words = { "LazyPluginSpec" } },
+        { path = "lazy.nvim",          words = { "LazyPluginSpec" } },
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         { path = "mini.icons",         words = { "MiniIcons" } },
         { path = "mini.statusline",    words = { "MiniStatusline" } },
         { path = "mini-git",           words = { "MiniGit" } },
         { path = "mini.diff",          words = { "MiniDiff" } },
+        { path = "rustaceanvim",       words = { "rustaceanvim" } },
       },
       integrations = {
         lspconfig = false,

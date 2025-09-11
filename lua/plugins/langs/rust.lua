@@ -10,8 +10,6 @@ return {
     "mrcjkb/rustaceanvim",
     version = '^6',
     init = function()
-      -- vim.g.cargo_shell_command_runner = "noautocmd vnew | terminal"
-
       ---@type rustaceanvim.Opts
       vim.g.rustaceanvim = {
         server = {
