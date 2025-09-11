@@ -27,26 +27,16 @@ vim.keymap.set("n", "<leader><leader>x", "<cmd>!chmod +x %<CR>", { silent = true
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-if not vim.g.using_tmux then
-  -- Moving around
-  vim.keymap.set({ 'n', "i" }, '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-  vim.keymap.set({ 'n', "i" }, '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-  vim.keymap.set({ 'n', "i" }, '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-  vim.keymap.set({ 'n', "i" }, '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-  -- Resizing
-  vim.keymap.set('n', '<C-Left>', function()
-    vim.cmd { cmd = "resize", args = { "+2" }, mods = { vertical = true } }
-  end, { desc = "Increase window width" })
-  vim.keymap.set('n', '<C-Right>', function()
-    vim.cmd { cmd = "resize", args = { "-2" }, mods = { vertical = true } }
-  end, { desc = "Decrease window width" })
-  vim.keymap.set('n', '<C-Down>', function()
-    vim.cmd.resize("-2")
-  end, { desc = "Increase window height" })
-  vim.keymap.set('n', '<C-Up>', function()
-    vim.cmd.resize("+2")
-  end, { desc = "Decrease window height" })
-end
+-- -- Moving around
+-- vim.keymap.set({ 'n', "i" }, '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+-- vim.keymap.set({ 'n', "i" }, '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- vim.keymap.set({ 'n', "i" }, '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+-- vim.keymap.set({ 'n', "i" }, '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- -- Resizing
+-- vim.keymap.set("n", "<C-S-Left>", "<C-w>2<", { desc = "Increase window width" })
+-- vim.keymap.set("n", "<C-S-Right>", "<C-w>2>", { desc = "Decrease window width" })
+-- vim.keymap.set("n", "<C-S-Down>", "<C-w>2+", { desc = "Increase window height" })
+-- vim.keymap.set("n", "<C-S-Up>", "<C-w>2-", { desc = "Decrease window height" })
 
 vim.keymap.set("n", "<leader>ts", function()
   if not vim.o.spell then

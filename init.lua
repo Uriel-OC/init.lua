@@ -9,9 +9,6 @@ vim.g.loaded_node_provider = 0
 -- Setup TeX
 vim.g.tex_flavor = "latex"
 
--- Are we using tmux
-vim.g.using_tmux = vim.fn.exists("$TMUX") == 1
-
 -- Load my config
 require "uriel"
 
