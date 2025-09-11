@@ -1,51 +1,56 @@
 -- moving around, searching and patterns
-vim.opt.incsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- displaying text
-vim.opt.smoothscroll = true
-vim.opt.scrolloff = 8
-vim.opt.wrap = false
-vim.opt.sidescrolloff = 8
-vim.opt.cmdheight = 1
-vim.opt.lazyredraw = true
-vim.opt.list = true
+vim.o.smoothscroll = true
+vim.o.scrolloff = 8
+vim.o.wrap = false
+vim.o.sidescrolloff = 8
+vim.opt.fillchars = { fold = " " }
+vim.o.cmdheight = 1
+vim.o.lazyredraw = true
+vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- syntax, highlighting and spelling
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "number"
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 
 -- multiple windows
-vim.opt.laststatus = 3
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.o.laststatus = 3
+vim.o.splitbelow = true
+vim.o.splitright = true
 
 -- messages and info
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- editing text
-vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
+vim.o.undofile = true
+vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
 
 -- tabs and indenting
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
+vim.o.smartindent = true
+
+-- folding
+vim.o.foldlevel = 99
+vim.o.foldtext = ""
 
 -- mapping
-vim.opt.timeoutlen = 300
+vim.o.timeoutlen = 300
 
 -- the swap file
-vim.opt.swapfile = false
-vim.opt.updatetime = 250
+vim.o.swapfile = false
+vim.o.updatetime = 250
 
 -- various
-vim.opt.signcolumn = "yes"
-vim.opt.pyxversion = 3
-vim.opt.winborder = "rounded"
+vim.o.signcolumn = "yes"
+vim.o.pyxversion = 3
+vim.o.winborder = "rounded"
