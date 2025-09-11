@@ -1,12 +1,10 @@
 vim.loader.enable()
 
 -- Disable some providers
-vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
-
--- Setup relevant providers
-vim.g.python3_host_prog = "/usr/bin/python3"
-vim.g.node_host_prog = "/opt/homebrew/bin/neovim-node-host"
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
 
 -- Setup TeX
 vim.g.tex_flavor = "latex"
