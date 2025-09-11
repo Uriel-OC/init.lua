@@ -36,6 +36,4 @@ return {
   cmd = cmd,
   filetypes = { "julia" },
   root_markers = { "Project.toml" },
-  capabilities = require("blink-cmp").get_lsp_capabilities(),
-  settings = {},
 }

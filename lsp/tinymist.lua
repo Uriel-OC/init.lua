@@ -3,7 +3,6 @@ return {
   cmd = { "tinymist", "lsp" },
   filetypes = { "typst" },
   root_markers = { "main.typ" },
-  capabilities = require("blink-cmp").get_lsp_capabilities(),
   settings = {
     exportPdf = "onSave",
     formatterMode = "typstyle",
