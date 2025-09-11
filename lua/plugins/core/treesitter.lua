@@ -6,7 +6,7 @@ return {
     branch = "main",
     build = ':TSUpdate',
     opts = {
-      ensure_installed = {
+      parsers = {
         -- Included parsers
         "c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc",
         -- Popular config filetypes
