@@ -4,12 +4,28 @@ vim.filetype.add {
   }
 }
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.stan = {
-  install_info = {
-    url = "https://github.com/WardBrian/tree-sitter-stan",
-    files = { "src/parser.c" },
-    branch = "main",
-  },
-  filetype = "stan",
-}
+local treesitter_ok, _ = pcall(require, "nvim-treesitter")
+
+if not treesitter_ok then
+  return
+end
+
+local ts_group = vim.api.nvim_create_augroup("MoreParsers", { clear = true })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  group = ts_group,
+  once = true,
+  callback = function()
+    require("nvim-treesitter.parsers").stan = {
+      install_info = {
+        revision = "8f42a13095951700e7f9597dc309bee2c390c51f",
+        url = "https://github.com/WardBrian/tree-sitter-stan",
+        queries = "queries",
+      },
+      maintainers = { "@WardBrian" },
+      tier = 2,
+    }
+  end
+})
+
