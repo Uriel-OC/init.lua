@@ -9,7 +9,7 @@ return {
         -- Included parsers
         "c", "lua", "markdown", "markdown_inline", "query", "vim", "vimdoc",
         -- Popular config filetypes
-        "json", "toml", "ssh_config", "yaml",
+        "json", "ssh_config",
         -- Shells
         "bash", "fish",
         -- Git

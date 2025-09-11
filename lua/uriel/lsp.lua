@@ -106,4 +106,6 @@ vim.lsp.enable {
   "clangd",
   -- Terraform
   "terraformls",
+  -- TOML
+  "tombi",
 }
