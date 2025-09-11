@@ -99,7 +99,7 @@ vim.lsp.enable {
   -- Typst
   "tinymist",
   -- Python
-  "pyright", "ruff",
+  "basedpyright", "ruff",
   -- Julia
   "julials",
   -- C/C++/CUDA
