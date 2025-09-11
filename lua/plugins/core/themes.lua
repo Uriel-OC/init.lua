@@ -6,17 +6,26 @@ return {
     lazy = true,
     opts = {
       flavor = "mocha",
-      custom_highlights = function(colors)
+      custom_highlights = function(C)
         return {
-          ColorColumn = { bg = colors.mantle },
+          ColorColumn = { bg = C.mantle },
+          Folded = { bg = C.mantle },
         }
       end,
-      integrations = {
-        blink_cmp = true,
-        fidget = true,
-        snacks = { enabled = true },
-        lsp_trouble = true,
-      },
+      auto_integrations = true,
     }
-  }
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    opts = {
+      enable = {
+        legacy_highlights = false,
+      },
+      styles = {
+        transparency = true,
+      },
+    },
+  },
 }
+

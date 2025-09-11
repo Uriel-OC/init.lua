@@ -13,4 +13,4 @@ vim.g.tex_flavor = "latex"
 require "uriel"
 
 -- Load coloscheme
-pcall(vim.cmd.colorscheme, "catppuccin")
+pcall(vim.cmd.colorscheme, "rose-pine")
