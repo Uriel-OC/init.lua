@@ -7,7 +7,7 @@ return {
   settings = {
     texlab = {
       build = {
-        args = { "-silent", "%f" },
+        args = { "-silent" },
         useFileList = true,
         pdfDirectory = "output",
       },
