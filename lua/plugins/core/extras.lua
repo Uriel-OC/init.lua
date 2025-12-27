@@ -60,29 +60,28 @@ return {
       vim.g.slime_bracketed_paste = 1
     end,
     keys = {
-      { "gzz", "<Plug>SlimeLineSend", desc = "Send line to REPL" },
+      { "gz", "<Plug>SlimeLineSend", desc = "Send {count} line(s) to REPL" },
       {
         "gz",
         "<Plug>SlimeRegionSend",
         mode = "x",
+        desc = "Send {visual} text to REPL"
+      },
+    },
+  },
+  {
+    "tpope/vim-dispatch",
+    init = function()
+      vim.g.dispatch_no_maps = 1
+    end,
+    keys = {
+      {
+        "mm",
+        "<Cmd>Make!<CR>",
         silent = true,
-        desc = "Send region to REPL"
+        desc = "Asynchronous build"
       },
+      { "m<Space>", ":Make! ", desc = "Pass arguments to :Make!" },
     },
-    {
-      "tpope/vim-dispatch",
-      init = function()
-        vim.g.dispatch_no_maps = 1
-      end,
-      keys = {
-        {
-          "mm",
-          "<Cmd>Make!<CR>",
-          silent = true,
-          desc = "Asynchronous build"
-        },
-        { "m<Space>", ":Make! ", desc = "Pass arguments to :Make!" },
-      },
-    },
-  }
+  },
 }
