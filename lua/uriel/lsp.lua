@@ -70,6 +70,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     if client:supports_method(ms.textDocument_rangeFormatting, event.buf) then
       vim.api.nvim_clear_autocmds { group = "ByeWhite", buffer = event.buf }
     end
+
+    if client:supports_method(ms.textDocument_foldingRange, event.buf) then
+      local winid = vim.api.nvim_get_current_win()
+      vim.wo[winid][0].foldmethod = "expr"
+      vim.wo[winid][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+    end
   end,
 })
 
@@ -104,8 +110,6 @@ vim.lsp.enable {
   "julials",
   -- C/C++/CUDA
   "clangd",
-  -- Terraform
-  "terraformls",
   -- TOML
   "tombi",
 }
