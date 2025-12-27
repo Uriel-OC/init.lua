@@ -44,7 +44,8 @@ return {
     ---@type blink.cmp.Config
     opts = {
       keymap = {
-        ["<C-space>"] = { "show_documentation", "hide_documentation" },
+        preset = "none",
+        ["<M-space>"] = { "show_documentation", "hide_documentation" },
         ["<C-c>"] = { "hide" },
         ["<CR>"] = { "accept", "fallback" },
 
@@ -74,13 +75,18 @@ return {
         sorts = { "score", "exact", "sort_text" },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-        per_filetype = { lua = { "lazydev", "lsp", "buffer" } },
+        default = { "lsp", "path", "snippets" },
+        per_filetype = { lua = { "lazydev", "lsp" } },
         providers = {
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             score_offset = 100,
+          },
+          snippets = {
+            opts = {
+              show_autosnippets = false,
+            },
           },
         },
       },
