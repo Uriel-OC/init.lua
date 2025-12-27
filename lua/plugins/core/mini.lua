@@ -7,20 +7,17 @@ return {
   },
   {
     "echasnovski/mini.hipatterns",
-    config = function()
-      local hipatterns = require "mini.hipatterns"
-      hipatterns.setup {
-        highlighters = {
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-        },
-      }
-
-      hipatterns.disable()
-    end,
     keys = {
       {
         "<leader>tc",
-        function () require("mini.hipatterns").toggle() end,
+        function()
+          local patterns = require "mini.hipatterns"
+          patterns.toggle(0, {
+            highlighters = {
+              hex_color = patterns.gen_highlighter.hex_color(),
+            },
+          })
+        end,
         silent = true,
         desc = "Toggle color highlighter"
       }
@@ -32,28 +29,27 @@ return {
     opts = {
       content = {
         active = function()
-          local mode, mode_hl     = MiniStatusline.section_mode({ trunc_width = 120 })
-          local git               = MiniStatusline.section_git({ trunc_width = 40 })
-          local diff              = MiniStatusline.section_diff({ trunc_width = 75 })
-          local diagnostics       = MiniStatusline.section_diagnostics({
+          local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+          local git           = MiniStatusline.section_git({ trunc_width = 40 })
+          local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
+          local diagnostics   = MiniStatusline.section_diagnostics({
             trunc_width = 75,
-            -- signs = { ERROR = '󰅚 ', WARN = '󰀪 ', INFO = '󰋽 ', HINT = '󰌶 ' }
             signs = { ERROR = ' ', WARN = ' ', INFO = ' ', HINT = ' ' }
           })
-          local lsp               = MiniStatusline.section_lsp({ trunc_width = 75 })
-          local filename          = MiniStatusline.section_filename({ trunc_width = 140 })
-          local location          = MiniStatusline.section_location({ trunc_width = 75 })
+          local lsp           = MiniStatusline.section_lsp({ trunc_width = 75 })
+          local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+          local location      = MiniStatusline.section_location({ trunc_width = 75 })
 
-          local ft_icon, _, _ = MiniIcons.get("extension", vim.fn.expand("%:t"))
+          local ft_icon, _, _ = MiniIcons.get("filetype", vim.bo.filetype)
 
-          local fileinfo          = ('%s[%s]'):format(
+          local fileinfo      = ('%s[%s]'):format(
             vim.bo.fileencoding or vim.bo.encoding, vim.bo.fileformat
           )
 
           return MiniStatusline.combine_groups({
             -- Right
-            { hl = mode_hl,                  strings = { mode } },
-            { hl = 'MiniStatuslineDevinfo',  strings = { lsp, diagnostics } },
+            { hl = mode_hl,                 strings = { mode } },
+            { hl = 'MiniStatuslineDevinfo', strings = { lsp, diagnostics } },
             -- Center
             "%<",
             { hl = "MiniStatuslineFilename", strings = { "%=", ft_icon } },
