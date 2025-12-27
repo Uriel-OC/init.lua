@@ -23,7 +23,7 @@ require("lazy").setup {
     { import = "plugins.langs" },
   },
   rocks = { enabled = false },
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "rose-pine" } },
   change_detection = { enabled = false },
   performance = {
     rtp = {
