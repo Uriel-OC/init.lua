@@ -3,7 +3,7 @@ return {
   {
     "nvim-treesitter",
     opts = function(_, opts)
-      vim.list_extend(opts.parsers, { "bibtex", "latex" })
+      vim.list_extend(opts.parsers, { "bibtex", "latex", "perl" })
     end
   },
   {
