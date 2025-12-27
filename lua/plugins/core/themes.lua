@@ -12,6 +12,7 @@ return {
           Folded = { bg = C.mantle },
         }
       end,
+      default_integrations = false,
       auto_integrations = true,
     }
   },
@@ -19,12 +20,16 @@ return {
     "rose-pine/neovim",
     name = "rose-pine",
     opts = {
+      dim_inactive_windows = true,
       enable = {
+        terminal = false,
         legacy_highlights = false,
       },
-      styles = {
-        transparency = true,
-      },
+      highlight_groups = {
+        TreesitterContext = { bg = "base" },
+        TreesitterContextLineNumber = { fg = "muted", bg = "base" },
+        TreesitterContextBottom = { sp = "muted", underline = true },
+      }
     },
   },
 }
