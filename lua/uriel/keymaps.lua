@@ -25,8 +25,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "<leader><leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
 -- -- Moving around
 -- vim.keymap.set({ 'n', "i" }, '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 -- vim.keymap.set({ 'n', "i" }, '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
