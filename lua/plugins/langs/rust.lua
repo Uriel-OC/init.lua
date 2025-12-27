@@ -8,13 +8,13 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
-    version = '^6',
+    version = "^6",
     init = function()
       ---@type rustaceanvim.Opts
       vim.g.rustaceanvim = {
         server = {
           on_attach = function(_, bufnr)
-            vim.keymap.set("n", "K", "<Plug>RustHoverAction", { silent = true, buffer = bufnr })
+            vim.keymap.set("n", "K", "<Cmd>RustLsp hover actions<CR>", { silent = true, buffer = bufnr })
             vim.keymap.set("n", "gra", function()
               vim.cmd.RustLsp("codeAction")
             end, { silent = true, buffer = bufnr })
