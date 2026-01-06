@@ -49,7 +49,7 @@ autocmd("FileType", {
     vim.wo[winid][0].colorcolumn = "80"
 
     vim.keymap.set("n", "<leader>ts", function()
-      if not vim.o.spell then
+      if not vim.wo.spell then
         vim.ui.select({ "es_mx", "en_us" }, { prompt = "Lang: " }, function(choice)
           vim.bo.spelllang = choice
         end)
