@@ -9,9 +9,9 @@ local in_math = make_condition(function()
     "displayed_equation",
     "math_environment"
   }
-  local stop_nodes = { "label_definition", "text_mode", "begin", "end" }
+  local stop_nodes = { "label_definition", "text_mode" }
 
-  local climber = vim.treesitter.get_node()
+  local climber = vim.treesitter.get_node { include_anonymous = true }
 
   while climber do
     local climber_type = climber:type()
@@ -48,8 +48,8 @@ return {}, {
   s("bint", fmta([[\int_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
   s("ssum", fmta([[\sum_{<>}]], i(1)), { condition = in_math }),
   s("sum", fmta([[\sum_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
-  s("sprod", fmta([[\sum_{<>}]], i(1)), { condition = in_math }),
-  s("prod", fmta([[\sum_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
+  s("sprod", fmta([[\prod_{<>}]], i(1)), { condition = in_math }),
+  s("prod", fmta([[\prod{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
   -- Math letters
   postfix(".bb", {
     l(l.POSTFIX_MATCH:sub(1, -2) .. "\\mathbb{" .. l.POSTFIX_MATCH:sub(-1) .. "}"),
