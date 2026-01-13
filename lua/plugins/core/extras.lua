@@ -84,4 +84,12 @@ return {
       { "m<Space>", ":Make! ", desc = "Pass arguments to :Make!" },
     },
   },
+  {
+    "andymass/vim-matchup",
+    opts = {
+      treesitter = {
+        stopline = 500,
+      }
+    }
+  }
 }
