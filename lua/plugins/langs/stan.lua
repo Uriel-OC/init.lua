@@ -6,6 +6,7 @@ return {
       stan = {
         install_info = {
           url = "https://github.com/WardBrian/tree-sitter-stan",
+          location = "grammars/stan",
           queries = "queries",
         },
         maintainers = { "@WardBrian" },
