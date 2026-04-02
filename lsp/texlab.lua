@@ -1,7 +1,7 @@
 ---@type vim.lsp.Config
 return {
   cmd = { "texlab" },
-  filetypes = { "tex", "bibtex" },
+  filetypes = { "tex", "bib" },
   root_markers = { ".latexmkrc" },
   workspace_required = true,
   settings = {
@@ -76,7 +76,7 @@ return {
       end)
     end, { desc = "Clean auxiliary files and artifacts" })
 
-    vim.api.nvim_create_autocmd("QuitPre", {
+    vim.api.nvim_create_autocmd("VimLeavePre", {
       desc = "Cancel build gracefully before quit",
       group = vim.api.nvim_create_augroup("CancelBuild", { clear = true }),
       buffer = bufnr,
