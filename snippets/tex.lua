@@ -31,7 +31,7 @@ end)
 return {}, {
   -- Delimiters
   s([[\(]], fmta([[\(<>\)]], i(1)), { condition = - in_math }),
-  s([[\[]], fmta("\\[<>\\]", i(1)), { condition = - in_math }),
+  s([[\[]], fmta("\\[<>\\]", i(1)), { condition = conds.line_begin - in_math}),
   s([[\{]], fmta([[\{<>\}]], i(1)), { condition = in_math }),
   -- Scripts
   s("^", fmta("^{<>}", i(1)), { condition = in_math }),
@@ -47,9 +47,13 @@ return {}, {
   s("sint", fmta([[\int_{<>}]], i(1)), { condition = in_math }),
   s("bint", fmta([[\int_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
   s("ssum", fmta([[\sum_{<>}]], i(1)), { condition = in_math }),
-  s("sum", fmta([[\sum_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
+  s("sum", fmta([[\sum_{<>=<>}^{<>}]], { i(1), i(2), i(3) }), { condition = in_math }),
   s("sprod", fmta([[\prod_{<>}]], i(1)), { condition = in_math }),
-  s("prod", fmta([[\prod{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
+  s("prod", fmta([[\prod_{<>=<>}^{<>}]], { i(1), i(2), i(3) }), { condition = in_math }),
+  s("bcap", fmta([[\bigcap_{<>=<>}^{<>}]], { i(1), i(2), i(3) }), { condition = in_math }),
+  s("scap", fmta([[\bigcap_{<>}]], { i(1) }), { condition = in_math }),
+  s("bcup", fmta([[\bigcup{<>=<>}^{<>}]], { i(1), i(2), i(3) }), { condition = in_math }),
+  s("scup", fmta([[\bigcup_{<>}]], { i(1) }), { condition = in_math }),
   -- Math letters
   postfix(".bb", {
     l(l.POSTFIX_MATCH:sub(1, -2) .. "\\mathbb{" .. l.POSTFIX_MATCH:sub(-1) .. "}"),
