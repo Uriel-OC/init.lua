@@ -4,5 +4,8 @@ vim.filetype.add {
   },
   filename = {
     [".latexmkrc"] = "perl",
+  },
+  pattern = {
+    [".*/kitty/.*%.conf"] = "kitty",
   }
 }
