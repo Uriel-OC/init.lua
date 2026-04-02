@@ -6,7 +6,7 @@ autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = augroup("HighlightYank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -16,8 +16,9 @@ autocmd("InsertEnter", {
   desc = "Turn off 'relativenumber'",
   group = relative_num,
   callback = function()
+    local winid = vim.api.nvim_get_current_win()
     if vim.o.number then
-      vim.opt_local.relativenumber = false
+      vim.wo[winid][0].relativenumber = false
     end
   end
 })
@@ -25,8 +26,9 @@ autocmd("InsertLeave", {
   desc = "Turn on 'relativenumber'",
   group = relative_num,
   callback = function()
+    local winid = vim.api.nvim_get_current_win()
     if vim.o.number then
-      vim.opt_local.relativenumber = true
+      vim.wo[winid][0].relativenumber = true
     end
   end
 })
@@ -49,7 +51,7 @@ autocmd("FileType", {
     vim.wo[winid][0].colorcolumn = "80"
 
     vim.keymap.set("n", "<leader>ts", function()
-      if not vim.wo.spell then
+      if not vim.wo[winid][0].spell then
         vim.ui.select({ "es_mx", "en_us" }, { prompt = "Lang: " }, function(choice)
           vim.bo.spelllang = choice
         end)
