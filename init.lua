@@ -10,7 +10,11 @@ vim.g.loaded_node_provider = 0
 vim.g.tex_flavor = "latex"
 
 -- Load my config
-require "uriel"
+require "options"
+require "keymaps"
+require "autocommands"
+require "lazy"
+require "lsp"
 
 -- Load coloscheme
 pcall(vim.cmd.colorscheme, "rose-pine")

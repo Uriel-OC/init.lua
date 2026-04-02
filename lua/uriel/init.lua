@@ -1,5 +1,0 @@
-require "uriel.options"
-require "uriel.keymaps"
-require "uriel.autocommands"
-require "uriel.lazy"
-require "uriel.lsp"
