@@ -10,7 +10,7 @@ return {
     "blink.cmp",
     opts = {
       sources = {
-        per_filetype = { tex = { "lsp", "buffer", "snippets" } },
+        per_filetype = { tex = { "lsp", "snippets" } },
       }
     },
   },
