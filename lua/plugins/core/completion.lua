@@ -55,15 +55,17 @@ return {
         ["<C-b>"] = { "scroll_documentation_up", "fallback" },
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-        ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-h>"] = { "snippet_backward", "fallback" },
-
         ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
       },
       snippets = { preset = "luasnip" },
       completion = {
         list = {
           selection = { preselect = false, auto_insert = false },
+        },
+        accept = {
+          auto_brackets = {
+            enabled = false,
+          }
         },
         menu = {
           border = "none",
