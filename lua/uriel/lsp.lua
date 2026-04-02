@@ -97,19 +97,10 @@ vim.diagnostic.config {
   severity_sort = true,
 }
 
-vim.lsp.enable {
-  -- Lua
-  "lua_ls",
-  -- LaTeX
-  "texlab",
-  -- Typst
-  "tinymist",
-  -- Python
-  "basedpyright", "ruff",
-  -- Julia
-  "julials",
-  -- C/C++/CUDA
-  "clangd",
-  -- TOML
-  "tombi",
-}
+local servers = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
+    :map(function(file)
+      return vim.fn.fnamemodify(file, ':t:r')
+    end)
+    :totable()
+
+vim.lsp.enable(servers)
