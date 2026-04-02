@@ -14,7 +14,7 @@ return {
         -- Git
         "git_config", "git_rebase", "gitcommit", "gitignore",
         -- Others
-        "comment", "csv", "make", "regex", "tmux",
+        "comment", "csv", "kitty", "make", "regex", "tmux",
       },
     },
     config = function(_, opts)
@@ -41,14 +41,12 @@ return {
 
             local tsq = vim.treesitter.query
 
-            local has_folds, _ = pcall(tsq.get, lang, "folds")
-            if has_folds then
+            if tsq.get(lang, "folds") ~= nil then
               local winid = vim.api.nvim_get_current_win()
               vim.wo[winid][0].foldmethod = "expr"
               vim.wo[winid][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
             end
-            local has_indents, _ = pcall(tsq.get, lang, "indents")
-            if has_indents then
+            if tsq.get(lang, "indents") ~= nil then
               vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
           end
@@ -78,6 +76,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    enabled = false,
     branch = "main",
     init = function()
       vim.g.no_plugin_maps = true
