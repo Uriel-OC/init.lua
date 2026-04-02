@@ -8,11 +8,11 @@ vim.o.smoothscroll = true
 vim.o.scrolloff = 8
 vim.o.wrap = false
 vim.o.sidescrolloff = 8
-vim.opt.fillchars = { fold = " " }
+vim.o.fillchars = "fold: "
 vim.o.cmdheight = 1
 vim.o.lazyredraw = true
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.o.listchars = "tab:» ,trail:·,nbsp:␣"
 vim.o.number = true
 vim.o.relativenumber = true
 
