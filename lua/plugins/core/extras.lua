@@ -3,12 +3,13 @@ return {
   {
     "mrjones2014/smart-splits.nvim",
     event = "VeryLazy",
-    config = function()
+    opts = {
+      default_amount = 2,
+    },
+    config = function(_, opts)
       local splits = require "smart-splits"
 
-      splits.setup {
-        default_amount = 2,
-      }
+      splits.setup(opts)
 
       vim.keymap.set({ "n", "i" }, "<M-h>", splits.move_cursor_left)
       vim.keymap.set({ "n", "i" }, "<M-j>", splits.move_cursor_down)
@@ -60,7 +61,8 @@ return {
       vim.g.slime_bracketed_paste = 1
     end,
     keys = {
-      { "gz", "<Plug>SlimeLineSend", desc = "Send {count} line(s) to REPL" },
+      { "gzz", "<Plug>SlimeLineSend", desc = "Send {count} line(s) to REPL" },
+      { "gz", "<Plug>SlimeMotionSend", desc = "Send {motion} text to REPL" },
       {
         "gz",
         "<Plug>SlimeRegionSend",
@@ -87,6 +89,13 @@ return {
   {
     "andymass/vim-matchup",
     opts = {
+      matchparen = {
+        deferred = true,
+        offscreen = {},
+      },
+      text_obj = {
+        enabled = false,
+      },
       treesitter = {
         stopline = 500,
       }
