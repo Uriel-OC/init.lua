@@ -21,3 +21,5 @@
   (#not-has-ancestor? @nospell label_definition text_mode begin end)
   (#has-ancestor? @nospell inline_formula displayed_equation math_environment)
   (#set! priority 1000))
+
+[(line_comment) (block_comment)] @nospell
