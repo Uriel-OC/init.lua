@@ -5,11 +5,9 @@ return {
   root_markers = { ".luarc.json", { ".git" } },
   settings = {
     Lua = {
-      runtime = {
-        version = "LuaJIT",
-        path = { "lua/?.lua", "lua/?/init.lua" },
-      },
+      runtime = { version = "LuaJIT" },
       completion = {
+        autoRequire = false,
         callSnippet = "Replace",
       },
     },
