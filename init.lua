@@ -7,17 +7,15 @@ require("vim._core.ui2").enable {
     targets = {
       [""] = "msg",
       empty = "cmd",
-      bufwrite = "msg",
       confirm = "cmd",
       emsg = "pager",
       echo = "msg",
       echomsg = "msg",
       echoerr = "pager",
-      completion = "cmd",
       list_cmd = "pager",
       lua_error = "pager",
       lua_print = "msg",
-      progress = "pager",
+      progress = "msg",
       rpc_error = "pager",
       quickfix = "msg",
       search_cmd = "cmd",
@@ -70,7 +68,7 @@ vim.g.loaded_node_provider = 0
 -- Setup TeX
 vim.g.tex_flavor = "latex"
 
--- Setup colorschem
+-- Setup colorscheme
 vim.pack.add({{
   src = "https://github.com/rose-pine/neovim",
   name = "rose-pine"
