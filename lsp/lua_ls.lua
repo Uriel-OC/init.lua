@@ -2,14 +2,16 @@
 return {
   cmd = { "lua-language-server" },
   filetypes = { "lua" },
-  root_markers = { ".luarc.json", { ".git" } },
+  root_markers = { "init.lua", { ".luarc.json" } },
   settings = {
     Lua = {
-      runtime = { version = "LuaJIT" },
+      codelens = { enable = true },
       completion = {
         autoRequire = false,
         callSnippet = "Replace",
       },
+      hint = { enable = true },
+      runtime = { version = "LuaJIT" },
     },
   },
 }
