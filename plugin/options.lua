@@ -50,6 +50,9 @@ vim.o.timeoutlen = 300
 vim.o.swapfile = false
 vim.o.updatetime = 250
 
+-- command line editing
+vim.opt.wildignore:append(".DS_Store")
+
 -- various
 vim.o.signcolumn = "yes"
 vim.o.pyxversion = 3
