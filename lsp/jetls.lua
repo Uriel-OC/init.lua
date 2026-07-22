@@ -2,7 +2,7 @@
 return {
   cmd = { "jetls", "serve" },
   filetypes = { "julia" },
-  root_markers = { "Project.toml" },
+  root_markers = { "Manifest.toml" },
   init_options = {
     analysis_overrides = {
       { path = "src/**/*.jl" },
