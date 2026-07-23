@@ -23,15 +23,5 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
-vim.keymap.set("n", "<leader><leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
--- -- Moving around
--- vim.keymap.set({ 'n', "i" }, '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
--- vim.keymap.set({ 'n', "i" }, '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
--- vim.keymap.set({ 'n', "i" }, '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
--- vim.keymap.set({ 'n', "i" }, '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
--- -- Resizing
--- vim.keymap.set("n", "<C-S-Left>", "<C-w>2<", { desc = "Increase window width" })
--- vim.keymap.set("n", "<C-S-Right>", "<C-w>2>", { desc = "Decrease window width" })
--- vim.keymap.set("n", "<C-S-Down>", "<C-w>2+", { desc = "Increase window height" })
--- vim.keymap.set("n", "<C-S-Up>", "<C-w>2-", { desc = "Decrease window height" })
+vim.cmd.packadd("nvim.undotree")
+vim.keymap.set("n", "<leader><leader>", vim.cmd.Undotree, { silent = true })
