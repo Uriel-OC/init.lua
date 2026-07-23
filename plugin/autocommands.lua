@@ -11,24 +11,12 @@ autocmd("TextYankPost", {
 })
 
 -- Toggle relative number
-local relative_num = augroup("ToggleRelNum", { clear = true })
-autocmd("InsertEnter", {
-  desc = "Turn off 'relativenumber'",
-  group = relative_num,
+autocmd({ "InsertEnter", "InsertLeave" }, {
+  desc = "Toogle 'relativenumber'",
   callback = function()
     local winid = vim.api.nvim_get_current_win()
-    if vim.o.number then
-      vim.wo[winid][0].relativenumber = false
-    end
-  end
-})
-autocmd("InsertLeave", {
-  desc = "Turn on 'relativenumber'",
-  group = relative_num,
-  callback = function()
-    local winid = vim.api.nvim_get_current_win()
-    if vim.o.number then
-      vim.wo[winid][0].relativenumber = true
+    if vim.wo[winid].number then
+      vim.wo[winid][0].relativenumber = not vim.wo[winid][0].relativenumber
     end
   end
 })
@@ -51,14 +39,14 @@ autocmd("FileType", {
     vim.wo[winid][0].colorcolumn = "80"
 
     vim.keymap.set("n", "<leader>ts", function()
-      if not vim.wo[winid][0].spell then
+      if not vim.wo[winid].spell then
         vim.ui.select({ "es_mx", "en_us" }, { prompt = "Lang: " }, function(choice)
-          vim.bo.spelllang = choice
+          vim.bo[event.buf].spelllang = choice or ""
         end)
-        vim.wo[winid][0].spell = true
+        vim.wo[winid].spell = true
       else
-        vim.bo.spelllang = ""
-        vim.wo[winid][0].spell = false
+        vim.bo[event.buf].spelllang = ""
+        vim.wo[winid].spell = false
       end
     end, { desc = "Toggle spell check", buffer = event.buf })
   end
