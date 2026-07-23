@@ -1,7 +1,11 @@
 local ms = vim.lsp.protocol.Methods
 
+local highlight_augroup = vim.api.nvim_create_augroup("LspHighlight", { clear = false })
+local attach_augroup = vim.api.nvim_create_augroup("AttachStuff", { clear = true })
+local detach_augroup = vim.api.nvim_create_augroup("DetachStuff", { clear = true })
+
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("AttachStuff", { clear = true }),
+  group = attach_augroup,
   callback = function(event)
     -- Unset 'omnifunc'
     vim.bo[event.buf].omnifunc = nil
@@ -9,12 +13,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Get LSP client
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-    if client == nil then
-      return false
-    end
+    if client == nil then return end
 
-    local fzf = require "fzf-lua"
-    local map = function(keys, func, desc, mode)
+    local function map(keys, func, desc, mode)
       mode = mode or "n"
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
@@ -22,16 +23,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Jump to the definition of the word under your cursor.
     --  This is where a variable was first declared, or where a function is defined, etc.
     --  To jump back, press <C-t>.
-    map("gd", fzf.lsp_definitions, "[G]oto [D]efinition")
-
-    -- Jump to the type of the word under your cursor.
-    --  Useful when you"re not sure what type a variable is and you want to see
-    --  the definition of its *type*, not where it was *defined*.
-    map("<leader>D", fzf.lsp_typedefs, "Type [D]efinition")
-
-    -- Fuzzy find all the symbols in your current workspace.
-    --  Similar to document symbols, except searches over your entire project.
-    map("<leader>ws", fzf.lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
+    map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
     -- WARN: This is not Goto Definition, this is Goto Declaration.
     --  For example, in C this would take you to the header.
@@ -39,7 +31,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- When you move your cursor, the highlights will be cleared (the second autocommand).
     if client:supports_method(ms.textDocument_documentHighlight, event.buf) then
-      local highlight_augroup = vim.api.nvim_create_augroup("LspHighlight", { clear = false })
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = event.buf,
         group = highlight_augroup,
@@ -53,12 +44,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
 
       vim.api.nvim_create_autocmd("LspDetach", {
-        group = vim.api.nvim_create_augroup("DetachStuff", { clear = true }),
+        group = detach_augroup,
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds { group = "LspHighlight", buffer = event2.buf }
         end,
       })
+    end
+
+    if client:supports_method(ms.textDocument_codeLens, event.buf) then
+      vim.lsp.codelens.enable(true, { bufnr = event.buf })
+    end
+
+    if client:supports_method(ms.textDocument_inlineCompletion, event.buf) then
+      vim.lsp.inline_completion.enable(true, { bufnr = event.buf })
+
+      vim.keymap.set('i', '<Tab>', function()
+        if not vim.lsp.inline_completion.get() then
+          return '<Tab>'
+        end
+      end, { expr = true, desc = 'Accept the current inline completion', buf = event.buf })
     end
 
     if client:supports_method(ms.textDocument_inlayHint, event.buf) then
@@ -76,6 +81,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.wo[winid][0].foldmethod = "expr"
       vim.wo[winid][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspProgress", {
+  callback = function(ev)
+    local value = ev.data.params.value
+    vim.api.nvim_echo({ { value.message or "done" } }, false, {
+      id = "lsp." .. ev.data.params.token,
+      kind = "progress",
+      source = "vim.lsp",
+      title = value.title,
+      status = value.kind ~= "end" and "running" or "success",
+      percent = value.percentage,
+    })
   end,
 })
 
@@ -97,10 +116,28 @@ vim.diagnostic.config {
   severity_sort = true,
 }
 
-local servers = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
-    :map(function(file)
-      return vim.fn.fnamemodify(file, ':t:r')
-    end)
-    :totable()
+local servers = vim.tbl_map(
+  function(file) return vim.fn.fnamemodify(file, ':t:r') end,
+  vim.api.nvim_get_runtime_file("lsp/*.lua", true)
+)
 
 vim.lsp.enable(servers)
+
+vim.pack.add {
+  "https://github.com/folke/lazydev.nvim"
+}
+
+require("lazydev.config").setup {
+  library = {
+    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    { path = "mini.icons",         words = { "MiniIcons" } },
+    { path = "mini.statusline",    words = { "MiniStatusline" } },
+    { path = "mini.git",           words = { "MiniGit" } },
+    { path = "mini.diff",          words = { "MiniDiff" } },
+    { path = "snip_env",           files = { "snippets/*.lua" } },
+  },
+  integrations = {
+    lspconfig = false,
+    cmp = false,
+  },
+}
