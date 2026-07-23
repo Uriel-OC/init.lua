@@ -100,7 +100,8 @@ blink.setup {
     default = { "lsp", "path", "snippets" },
     per_filetype = {
       lua = { "lazydev", "lsp" },
-      query = { "omni", "buffer" }
+      query = { "omni", "buffer" },
+      tex = { "lsp", "snippets" }
     },
     providers = {
       lazydev = {
