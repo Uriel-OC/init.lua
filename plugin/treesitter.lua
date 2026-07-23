@@ -1,26 +1,29 @@
+vim.g.query_lint_on = { "InsertLeave", "TextChanged" }
+
+local hooks_group = require("utils").hooks_augroup
+
+vim.g.no_plugin_maps = true
+
 vim.api.nvim_create_autocmd("PackChanged", {
   desc = "Update Tree-sitter parsers",
-  group = require("utils").hooks_augroup,
+  group = hooks_group,
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
     if name == "nvim-treesitter" and kind == "update" then
+      if not ev.data.active then vim.cmd.packadd("nvim-treesitter") end
       vim.cmd("TSUpdate")
     end
   end
 })
 
-vim.g.no_plugin_maps = true
-
-vim.pack.add({
+vim.pack.add {
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/nvim-treesitter/nvim-treesitter-context",
   "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-})
-
-local context = require "treesitter-context"
+}
 
 vim.schedule(function()
-  context.setup {
+  require("treesitter-context").setup {
     max_lines = 3,
     line_numbers = false,
   }
@@ -31,25 +34,38 @@ vim.schedule(function()
   }
 end)
 
-require("utils").add_parsers {
+local parsers = {
   -- Included parsers
   "c", "lua", "markdown", "query", "vim", "vimdoc",
   -- Popular config filetypes
   "json", "ssh_config",
   -- Shells
-  "bash", "fish", "zsh",
+  "bash", "fish",
   -- Git
-  "git_config", "git_rebase", "gitcommit", "gitignore",
+  "diff", "git_config", "git_rebase", "gitcommit", "gitignore",
   -- Others
-  "comment", "csv", "kitty", "make", "regex", "tmux",
+  "comment", "kitty", "cmake", "make", "regex",
+  -- Languages
+  "cpp", "julia", "python", "latex", "bibtex", "perl", "typst",
 }
 
 local ts = require "nvim-treesitter"
 local tsq = vim.treesitter.query
 local ts_move = require "nvim-treesitter-textobjects.move"
 
+local installed = ts.get_installed("parsers")
+
+local missing = vim.tbl_filter(
+  function(parser) return not vim.list_contains(installed, parser) end,
+  parsers
+)
+
+if #missing > 0 then
+  ts.install(missing)
+end
+
 local ts_group = vim.api.nvim_create_augroup("TSOptions", { clear = true })
-for _, lang in ipairs(ts.get_installed("parsers")) do
+for _, lang in ipairs(installed) do
   local ft = vim.treesitter.language.get_filetypes(lang)
   vim.api.nvim_create_autocmd("FileType", {
     group = ts_group,
@@ -87,26 +103,23 @@ for _, lang in ipairs(ts.get_installed("parsers")) do
   })
 end
 
-vim.schedule(function()
-  local installed = ts.get_installed("parsers")
-
-  local missing = require("utils").get_ts_parsers()
-      :filter(function(parser) return not vim.tbl_contains(installed, parser) end)
-      :totable()
-
-  if #missing > 0 then
-    ts.install(missing)
-  end
-end)
+local custom = {
+  stan = {
+    install_info = {
+      url = "https://github.com/WardBrian/tree-sitter-stan",
+      location = "grammars/stan",
+      queries = "queries",
+    },
+    maintainers = { "@WardBrian" },
+    tier = 2,
+  },
+}
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "TSUpdate",
-  group = vim.api.nvim_create_augroup("MoreParsers", { clear = true }),
-  once = true,
+  group = vim.api.nvim_create_augroup("CustomParsers", { clear = true }),
   callback = function()
-    local custom_parsers = require("utils").get_custom_ts_parsers()
-
-    for parser, repo_info in pairs(custom_parsers) do
+    for parser, repo_info in pairs(custom) do
       require("nvim-treesitter.parsers")[parser] = repo_info
     end
   end
