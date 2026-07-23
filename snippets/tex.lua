@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 -- Conditions
 local make_condition = require("luasnip.extras.conditions").make_condition
 
@@ -32,7 +31,7 @@ return {}, {
   -- Delimiters
   s([[\(]], fmta([[\(<>\)]], i(1)), { condition = - in_math }),
   s([[\[]], fmta("\\[<>\\]", i(1)), { condition = conds.line_begin - in_math}),
-  s([[\{]], fmta([[\{<>\}]], i(1)), { condition = in_math }),
+  s("set", fmta([[\{<>\}]], i(1)), { condition = in_math }),
   -- Scripts
   s("^", fmta("^{<>}", i(1)), { condition = in_math }),
   s("_", fmta("_{<>}", i(1)), { condition = in_math }),
@@ -42,7 +41,7 @@ return {}, {
   s("iff", t([[\iff]]), { condition = in_math }),
   s("to", t([[\to]]), { condition = in_math }),
   -- Operations
-  s("abs", fmta([[|<>|]], i(1)), { condition = in_math }),
+  s("aabs", fmta([[|<>|]], i(1)), { condition = in_math }),
   s("frac", fmta([[\frac{<>}{<>}]], { i(1), i(2) }), { condition = in_math }),
   s("sint", fmta([[\int_{<>}]], i(1)), { condition = in_math }),
   s("bint", fmta([[\int_{<>}^{<>}]], { i(1), i(2) }), { condition = in_math }),
@@ -70,5 +69,6 @@ return {}, {
   -- Others
   s("nnum", t([[\nonumber]]), { condition = conds.line_end * in_math }),
   s("text", fmta([[\text{<>}]], i(1)), { condition = in_math }),
-  s("lbl", fmta([[\label{eq:<>}]], i(1)), { condition = conds.line_end * in_math })
+  s("lbl", fmta([[\label{eq:<>}]], i(1)), { condition = conds.line_end * in_math }),
+  s("emphh", fmta([[\emph{<>}]], i(1)), { condition = -in_math }),
 }
