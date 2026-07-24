@@ -3,6 +3,7 @@ local ms = vim.lsp.protocol.Methods
 local highlight_augroup = vim.api.nvim_create_augroup("LspHighlight", { clear = false })
 local attach_augroup = vim.api.nvim_create_augroup("AttachStuff", { clear = true })
 local detach_augroup = vim.api.nvim_create_augroup("DetachStuff", { clear = true })
+local progress_augroup = vim.api.nvim_create_augroup("ProgMsgs", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = attach_augroup,
@@ -81,22 +82,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.wo[winid][0].foldmethod = "expr"
       vim.wo[winid][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
     end
+
+    if client:supports_method(ms.dollar_progress, event.buf) then
+      vim.api.nvim_create_autocmd("LspProgress", {
+        buf = event.buf,
+        callback = function(ev2)
+          local value = ev2.data.params.value
+          vim.api.nvim_echo({ { value.message or "done" } }, false, {
+            id = "lsp." .. ev2.data.params.token,
+            kind = "progress",
+            source = "vim.lsp",
+            title = value.title,
+            status = value.kind ~= "end" and "running" or "success",
+            percent = value.percentage,
+          })
+        end,
+      })
+    end
   end,
 })
 
-vim.api.nvim_create_autocmd("LspProgress", {
-  callback = function(ev)
-    local value = ev.data.params.value
-    vim.api.nvim_echo({ { value.message or "done" } }, false, {
-      id = "lsp." .. ev.data.params.token,
-      kind = "progress",
-      source = "vim.lsp",
-      title = value.title,
-      status = value.kind ~= "end" and "running" or "success",
-      percent = value.percentage,
-    })
-  end,
-})
 
 vim.diagnostic.config {
   underline = { severity = vim.diagnostic.severity.WARN },
